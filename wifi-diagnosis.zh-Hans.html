@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WiFi 诊断与网络检查：网络卡顿，是路由器、DNS 还是运营商？｜WiFi Aid</title>
+<meta name="description" content="网络时好时坏，先别急着重启路由器。用 iPhone 做 WiFi 诊断和网络检查：DNS、TCP、TLS、延迟与稳定性逐项分析，判断问题出在路由器、运营商还是网站本身。">
+<link rel="canonical" href="https://open.cait518.cc/wifiaid-support/wifi-diagnosis.zh-Hans.html">
+<meta property="og:title" content="WiFi 诊断与网络检查：网络卡顿，是路由器、DNS 还是运营商？｜WiFi Aid">
+<meta property="og:description" content="网络时好时坏，先别急着重启路由器。用 iPhone 做 WiFi 诊断和网络检查：DNS、TCP、TLS、延迟与稳定性逐项分析，判断问题出在路由器、运营商还是网站本身。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://open.cait518.cc/wifiaid-support/wifi-diagnosis.zh-Hans.html">
+<meta name="apple-itunes-app" content="app-id=6790467886">
+<style>
+:root{color-scheme:light dark;--bg:#fbfaf7;--fg:#1d1d1f;--muted:#5f6368;--line:rgba(128,128,128,.22);--accent:#2f6fde;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#ececf0;--muted:#a3a3ab;--card:#1d1d21;--accent:#7aa7ff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","PingFang TC","Noto Sans CJK TC","Apple SD Gothic Neo",Roboto,sans-serif}
+a{color:var(--accent)}
+.helpdoc{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+.helpdoc h1{font-size:clamp(26px,4.4vw,36px);line-height:1.3;margin:.2em 0 .4em}
+.helpdoc h2{font-size:clamp(19px,2.8vw,24px);margin:2.1em 0 .6em;scroll-margin-top:16px}
+.helpdoc h3{font-size:17px;margin:1.5em 0 .35em}
+.helpdoc .lede{font-size:17.5px;color:var(--muted);margin:0 0 1.4em}
+.helpdoc .hd-nav{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;margin:0 0 20px}
+.helpdoc .hd-toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;padding:0;list-style:none}
+.helpdoc .hd-toc a{display:inline-block;padding:5px 12px;border:1px solid var(--line);border-radius:999px;font-size:13.5px;text-decoration:none}
+.helpdoc .tbl{overflow-x:auto;margin:.8em 0}
+.helpdoc table{width:100%;border-collapse:collapse;font-size:15px}
+.helpdoc th,.helpdoc td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.helpdoc th{font-weight:650;white-space:nowrap}
+.helpdoc .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:1em 0}
+.helpdoc .cta{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:2.4em 0 1em}
+.helpdoc .cta a.btn{display:inline-block;margin:6px 0;padding:11px 20px;border-radius:999px;background:var(--accent);color:#fff;font-weight:650;text-decoration:none}
+.helpdoc .hd-q{margin:1.4em 0 .3em;font-weight:650;font-size:16.5px}
+.helpdoc .hd-a{margin:0 0 .2em}
+.helpdoc .hd-note{font-size:13px;color:var(--muted);margin-top:2.6em;border-top:1px solid var(--line);padding-top:14px}
+.helpdoc ul,.helpdoc ol{padding-left:1.25em}
+.helpdoc li{margin:.3em 0}
+@media print{.hd-nav,.cta,.hd-toc{display:none}body{background:#fff;color:#000}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "WiFi 诊断与网络检查：网络卡顿，是路由器、DNS 还是运营商？｜WiFi Aid", "description": "网络时好时坏，先别急着重启路由器。用 iPhone 做 WiFi 诊断和网络检查：DNS、TCP、TLS、延迟与稳定性逐项分析，判断问题出在路由器、运营商还是网站本身。", "inLanguage": "zh-Hans", "mainEntityOfPage": "https://open.cait518.cc/wifiaid-support/wifi-diagnosis.zh-Hans.html", "dateModified": "2026-10-20", "author": {"@type": "Organization", "@id": "https://open.cait518.cc/ios-app-guide/#organization", "name": "Lumi Studio", "url": "https://open.cait518.cc/ios-app-guide/about.html"}, "publisher": {"@type": "Organization", "@id": "https://open.cait518.cc/ios-app-guide/#organization", "name": "Lumi Studio", "url": "https://open.cait518.cc/ios-app-guide/about.html"}, "about": {"@type": "SoftwareApplication", "name": "WiFi Aid：找出网络问题·诊断", "operatingSystem": "iOS", "applicationCategory": "UtilitiesApplication", "url": "https://apps.apple.com/app/id6790467886"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "zh-Hans", "mainEntity": [{"@type": "Question", "name": "WiFi 已连接但网页打不开，是哪里坏了？", "acceptedAnswer": {"@type": "Answer", "text": "常见原因是 DNS 解析失败、加密连接（TLS）失败或网站自身有状况。用 WiFi Aid 运行检查，DNS、TCP、TLS 会逐项列出结果，能看出卡在哪一段。"}}, {"@type": "Question", "name": "网络时好时坏应该怎么检查？", "acceptedAnswer": {"@type": "Answer", "text": "用深度检查收集更多稳定性样本，观察延迟抖动；在不同时段多做几次，再用检查记录对比变化。"}}, {"@type": "Question", "name": "怎么知道是某个网站坏了，还是我家网络的问题？", "acceptedAnswer": {"@type": "Answer", "text": "用网站检查输入那个网址，WiFi Aid 会判断是单个网站出问题，还是整个网络都有故障。"}}, {"@type": "Question", "name": "WiFi Aid 会上传我的网络数据吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。无需账号，没有广告和跟踪，检查记录只保存在你的设备上。"}}, {"@type": "Question", "name": "可以用 Apple Watch 检查吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以。抬起手腕即可在 Apple Watch 上直接运行检查；主屏幕小组件也能快速检查。"}}, {"@type": "Question", "name": "WiFi Aid 是订阅制吗？", "acceptedAnswer": {"@type": "Answer", "text": "不是。WiFi Aid 在 App Store 一次付费买断，没有订阅。"}}]}</script>
+</head>
+<body>
+<p class="first-party-disclosure" data-first-party-disclosure="banner" role="note" style="margin:0;padding:8px 16px;background:#f3f4f6;color:#1f2937;border-bottom:1px solid #d1d5db;font-size:13px;line-height:1.5;text-align:center">本站由这些 App 的开发者 Lumi Studio 运营，介绍的是我们自己的 App。</p>
+<main class="helpdoc">
+<nav class="hd-nav"><a href="zh-Hans/">支持首页</a><a href="help.html">帮助与常见问题</a><a href="https://apps.apple.com/cn/app/id6790467886?pt=118326163&amp;ct=bm_wifiaid_cn_seo&amp;mt=8">WiFi Aid：找出网络问题·诊断</a><a href="https://play.google.com/store/apps/details?id=com.alice51849.WiFiAid&amp;referrer=utm_source%3Dbm_wifiaid_cn_seo%26utm_campaign%3Dwifiaid" rel="noopener" data-ls-play="nav">Google Play</a></nav>
+<h1>WiFi 诊断怎么做：用 iPhone 一步步检查网络问题出在哪</h1>
+<p class="lede">“网络又卡了”——问题可能出在<strong>路由器</strong>、<strong>DNS</strong>、<strong>运营商</strong>，也可能只是<strong>某个网站本身</strong>出了状况。重启碰运气有时管用，但下次再坏你还是不知道原因。这篇文章梳理 <strong>WiFi 诊断</strong>和<strong>网络检查</strong>要看哪几项、每一项代表什么，再演示如何用 <strong>WiFi Aid</strong> 在 iPhone 上一键做完整检测，通过证据找出最可能的故障原因。</p>
+<p><strong>本页目录</strong></p>
+<ul class="hd-toc"><li><a href="#layers">网络问题可能卡在哪一段</a></li><li><a href="#steps">用 WiFi Aid 做网络检查的步骤</a></li><li><a href="#decide">看完结果之后怎么处理</a></li><li><a href="#more">不打开 App 也能检查，以及隐私</a></li><li><a href="#faq">常见问题</a></li></ul>
+<h2 id="layers">网络问题可能卡在哪一段</h2>
+<p>从手机到网站中间要经过好几段，每一段出问题，感受都是“网速慢”。WiFi 分析的核心，就是逐段排除：</p><div class="tbl"><table><thead><tr><th>检查项目</th><th>看的是什么</th><th>出问题时常见的表现</th></tr></thead><tbody><tr><td>DNS</td><td>网址能不能正确解析成 IP 地址</td><td>已连上 WiFi，但网页一直转圈打不开</td></tr><tr><td>TCP</td><td>能不能和对方服务器建立连接</td><td>部分应用连不上、时好时坏</td></tr><tr><td>TLS</td><td>加密连接能不能完成</td><td>网页加载到一半卡住，或提示安全连接失败</td></tr><tr><td>响应时间（TTFB）</td><td>服务器多久开始响应</td><td>点下去要等很久才有反应</td></tr><tr><td>稳定性（延迟抖动）</td><td>连续采样时延迟是否忽高忽低</td><td>看着连上了、用起来却很卡</td></tr><tr><td>IPv4／IPv6</td><td>两种地址的连接是否都正常</td><td>某些网站或服务特别容易失败</td></tr></tbody></table></div>
+<h2 id="steps">用 WiFi Aid 做网络检查的步骤</h2>
+<ol><li><strong>运行检查</strong>：打开 WiFi Aid 点一下，几秒内完成 WiFi、DNS 与互联网连接的完整检测，直接看到结果与诊断结论。</li><li><strong>看证据</strong>：DNS、TCP、TLS、TTFB、HTTP、直连 IP、IPv4 与 IPv6 逐项列出，每个结论都有依据。</li><li><strong>时好时坏就做深度检查</strong>：收集更多证据与稳定性样本，适合排查间歇性问题。</li><li><strong>只有某个网站打不开</strong>：用网站检查输入那个网址，判断是单个网站出问题，还是整个网络都有故障。</li><li><strong>对比记录</strong>：历次结果自动保存在你的设备上，方便对比不同时段、不同位置的网络状况。</li></ol>
+<h2 id="decide">看完结果之后怎么处理</h2>
+<p>WiFi Aid 会交叉比对各项证据，告诉你最可能的故障原因。按结论决定下一步，比盲目重启有效：</p><ul><li><strong>只有单个网站有问题</strong>：多半是网站自身的状况，稍后再试，或换一个网络确认。</li><li><strong>DNS 这一段失败</strong>：问题可能在 DNS 设置或路由器，可以带着检查结果去咨询运营商。</li><li><strong>延迟抖动大、稳定性差</strong>：适合在不同房间、不同时段多做几次深度检查，找出信号或时段上的规律。</li><li><strong>整条连接都失败</strong>：问题可能在路由器、光猫或运营商一侧，检查记录可以作为和客服沟通的依据。</li></ul><p>需要说明的是，WiFi Aid 的结论是依据检测证据推断最可能的原因，具体维修仍以运营商或设备厂商为准。</p>
+<h2 id="more">不打开 App 也能检查，以及隐私</h2>
+<div class="tbl"><table><thead><tr><th>方式</th><th>做法</th></tr></thead><tbody><tr><td>Apple Watch</td><td>抬起手腕直接运行检查，无需掏出 iPhone</td></tr><tr><td>主屏幕小组件</td><td>随时显示连接状态并可快速检查</td></tr><tr><td>iPad</td><td>完整适配</td></tr></tbody></table></div><p>WiFi Aid 无需账号，没有广告、没有分析工具、没有任何跟踪；检查记录仅保存在本机，不上传云端。在 App Store 一次付费买断，不是订阅。</p>
+<div class="cta">
+<p><strong>想直接在 iPhone 上试试？</strong> 网络卡顿时用 WiFi Aid 一键做 WiFi 诊断，DNS、TCP、TLS、延迟与稳定性逐项看证据，找出最可能的原因。</p>
+<p><a class="btn" href="https://apps.apple.com/cn/app/id6790467886?pt=118326163&amp;ct=bm_wifiaid_cn_seo&amp;mt=8">在 App Store 查看 WiFi Aid：找出网络问题·诊断</a></p>
+<p><strong>使用 Android？</strong></p>
+<p><a class="btn" href="https://play.google.com/store/apps/details?id=com.alice51849.WiFiAid&amp;referrer=utm_source%3Dbm_wifiaid_cn_seo%26utm_campaign%3Dwifiaid" rel="noopener" data-ls-play="cta">在 Google Play 查看 WiFi Aid：找出网络问题·诊断</a></p>
+<p>已经在用 WiFi Aid：找出网络问题·诊断？可以到 App Store 留下评分或评价。 <a href="https://apps.apple.com/app/id6790467886?action=write-review">撰写评价</a></p>
+</div>
+<h2 id="faq">常见问题</h2>
+<p class="hd-q">WiFi 已连接但网页打不开，是哪里坏了？</p>
+<p class="hd-a">常见原因是 DNS 解析失败、加密连接（TLS）失败或网站自身有状况。用 WiFi Aid 运行检查，DNS、TCP、TLS 会逐项列出结果，能看出卡在哪一段。</p>
+<p class="hd-q">网络时好时坏应该怎么检查？</p>
+<p class="hd-a">用深度检查收集更多稳定性样本，观察延迟抖动；在不同时段多做几次，再用检查记录对比变化。</p>
+<p class="hd-q">怎么知道是某个网站坏了，还是我家网络的问题？</p>
+<p class="hd-a">用网站检查输入那个网址，WiFi Aid 会判断是单个网站出问题，还是整个网络都有故障。</p>
+<p class="hd-q">WiFi Aid 会上传我的网络数据吗？</p>
+<p class="hd-a">不会。无需账号，没有广告和跟踪，检查记录只保存在你的设备上。</p>
+<p class="hd-q">可以用 Apple Watch 检查吗？</p>
+<p class="hd-a">可以。抬起手腕即可在 Apple Watch 上直接运行检查；主屏幕小组件也能快速检查。</p>
+<p class="hd-q">WiFi Aid 是订阅制吗？</p>
+<p class="hd-a">不是。WiFi Aid 在 App Store 一次付费买断，没有订阅。</p>
+
+<div class="box"><p>WiFi Aid 是独立开发的 App，与 Apple 及各运营商没有隶属关系。诊断结论是依据检测证据推断最可能的原因，具体维修仍以运营商或设备厂商为准。</p></div>
+
+<p class="hd-note">本页由 WiFi Aid：找出网络问题·诊断 开发者在 AI 协助下撰写，并对照 App Store 商店页内容核对。最后更新：2026-10-20。</p>
+</main>
+</body>
+</html>
