@@ -1,0 +1,26 @@
+{
+  "name": "WiFi Aid: Find WiFi Problems",
+  "short_name": "WiFi Aid: Find WiFi Problems",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c5/a6/f3/c5a6f3f5-1203-8e0a-74a7-3bdae66748e0/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.alice51849.WiFiAid",
+      "url": "https://play.google.com/store/apps/details?id=com.alice51849.WiFiAid&referrer=utm_source%3Dsupport_site%26utm_medium%3Dpwa_banner%26utm_campaign%3Dwifiaid"
+    }
+  ],
+  "prefer_related_applications": true,
+  "x_generator": "ls-pwa/1"
+}
