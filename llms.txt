@@ -14,4 +14,13 @@
 - [Support and contact](https://open.cait518.cc/wifiaid-support/support.html)
 - [Privacy policy](https://open.cait518.cc/wifiaid-support/privacy.html)
 
+<!-- sqe-blitz:start -->
+## About the app (plain-language Q&A)
+
+- [What is WiFi Aid? A one-tap check for Wi-Fi, DNS and internet problems](https://open.cait518.cc/wifiaid-support/what-is-wifiaid.html)
+- [WiFi Aid 是什麼？一鍵檢查 Wi-Fi、DNS 與網路問題的 App](https://open.cait518.cc/wifiaid-support/what-is-wifiaid.zh-Hant.html)
+- [WiFi Aid 是什么？一键检查 Wi-Fi、DNS 和网络问题的 App](https://open.cait518.cc/wifiaid-support/what-is-wifiaid.zh-Hans.html)
+- [Was ist WiFi Aid? WLAN-, DNS- und Internetprobleme mit einem Tipp prüfen](https://open.cait518.cc/wifiaid-support/what-is-wifiaid.de-DE.html)
+<!-- sqe-blitz:end -->
+
 <!-- ls-llms: managed by support_network/gen_support_crosspromo.py -->
