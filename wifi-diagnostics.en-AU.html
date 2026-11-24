@@ -33,6 +33,9 @@ ol,ul{padding-left:1.3em} li{margin:.4em 0} .note{color:var(--muted)}
 <!-- ls-sharecard:start -->
 <meta name="robots" content="max-image-preview:large">
 <!-- ls-sharecard:end -->
+<!-- ls-clickbeacon:start -->
+<script>(function(){var E='https://office.cait518.cc/api/click';function h(e){try{var t=e.target,l=t&&t.closest&&t.closest('a[href]');if(!l||!navigator.sendBeacon)return;var u=new URL(l.href,location.href),s,k,c,q=u.searchParams;if(u.hostname==='apps.apple.com'){s='apple';k=(u.pathname.match(/\/id(\d+)/)||[])[1]||'';c=q.get('ct')||''}else if(u.hostname==='play.google.com'){s='play';var r=new URLSearchParams(q.get('referrer')||'');k=r.get('utm_campaign')||q.get('id')||'';c=r.get('utm_source')||''}else return;navigator.sendBeacon(E,JSON.stringify({p:location.pathname.slice(0,200),a:k.slice(0,100),ct:c.slice(0,64),s:s}))}catch(_){}}document.addEventListener('click',h,true);document.addEventListener('auxclick',h,true)})();</script>
+<!-- ls-clickbeacon:end -->
 </head>
 <body>
 <main>
@@ -48,6 +51,8 @@ ol,ul{padding-left:1.3em} li{margin:.4em 0} .note{color:var(--muted)}
 <li><strong>See where it breaks</strong>: the full evidence shows DNS, TCP, TLS, TTFB, HTTP, direct IP, IPv4 and IPv6, item by item.</li>
 <li><strong>On mesh Wi-Fi</strong>: see which node you are on and whether you roamed since your last check.</li>
 </ol>
+<h2>When the house is full over the summer holidays</h2>
+<p>More phones and tablets on the same Wi-Fi often means pages that load, then stall. Before you restart the router, run a Deep Check: it keeps sampling to catch a connection that looks connected but keeps lagging. If only one site is slow, use Check a Website to see whether it is that site or your whole connection. On mesh Wi-Fi, WiFi Aid also shows which node you are on and whether it changed since your last check.</p>
 <h2>Keep a record before you call your provider</h2>
 <p>Check History lets you compare past results, and it is stored only on this device. You can also run a check from Apple Watch, see connection status in a Home Screen widget, or use the full iPad layout.</p>
 <p class="note">No account, ads, analytics or tracking. One upfront App Store purchase. No subscription.</p>
